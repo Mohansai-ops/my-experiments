@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List with Dynamic Rendering</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 400px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    input {
+      width: 70%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #f8f9fa;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a new task" />
+    <button onclick="addTask()">Add</button>
+
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    // Array to store tasks
+    let tasks = [];
+
+    // Function to add a task
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const task = input.value.trim();
+
+      if (task !== "") {
+        tasks.push(task); // Add task to array
+        input.value = ""; // Clear input
+        renderTasks();    // Re-render the list
+      }
+    }
+
+    // Function to render the list dynamically using map()
+    function renderTasks() {
+      const taskList = document.getElementById("taskList");
+      taskList.innerHTML = tasks
+        .map((task, index) => `<li>${index + 1}. ${task}</li>`)
+        .join(""); // map() converts array → HTML list
+    }
+  </script>
+
+</body>
+</html>
