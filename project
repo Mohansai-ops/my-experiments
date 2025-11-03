@@ -1,0 +1,121 @@
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
+import { Button } from './components/ui/button';
+import { Badge } from './components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
+import { AdminDashboard } from './components/AdminDashboard';
+import { TeacherDashboard } from './components/TeacherDashboard';
+import { StudentDashboard } from './components/StudentDashboard';
+import { AdministratorDashboard } from './components/AdministratorDashboard';
+import { User, Settings, GraduationCap, Building2 } from 'lucide-react';
+
+export default function App() {
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  if (!currentUser) {
+    return (
+      <div className="min-h-screen bg-background p-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <Badge variant="secondary" className="mb-4">FEDF-PS13</Badge>
+            <h1 className="mb-4">Educational ERP System</h1>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              A comprehensive Enterprise Resource Planning system tailored for educational institutions, 
+              designed to manage academic records, scheduling, and communication between students, teachers, and administrators.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="cursor-pointer hover:bg-accent transition-colors" onClick={() => setCurrentUser('admin')}>
+              <CardHeader className="text-center">
+                <Settings className="w-12 h-12 mx-auto mb-2 text-primary" />
+                <CardTitle>Admin</CardTitle>
+                <CardDescription>System Configuration</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Configure ERP settings</li>
+                  <li>• Manage user roles</li>
+                  <li>• Oversee system operations</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="cursor-pointer hover:bg-accent transition-colors" onClick={() => setCurrentUser('teacher')}>
+              <CardHeader className="text-center">
+                <GraduationCap className="w-12 h-12 mx-auto mb-2 text-primary" />
+                <CardTitle>Teacher</CardTitle>
+                <CardDescription>Academic Management</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Manage student records</li>
+                  <li>• Grade assignments</li>
+                  <li>• Schedule classes</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="cursor-pointer hover:bg-accent transition-colors" onClick={() => setCurrentUser('student')}>
+              <CardHeader className="text-center">
+                <User className="w-12 h-12 mx-auto mb-2 text-primary" />
+                <CardTitle>Student</CardTitle>
+                <CardDescription>Academic Access</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Access academic records</li>
+                  <li>• Track attendance</li>
+                  <li>• Interact with teachers</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="cursor-pointer hover:bg-accent transition-colors" onClick={() => setCurrentUser('administrator')}>
+              <CardHeader className="text-center">
+                <Building2 className="w-12 h-12 mx-auto mb-2 text-primary" />
+                <CardTitle>Administrator</CardTitle>
+                <CardDescription>Operations Management</CardDescription>
+              </CardHeader>
+              <CardContent>
+
+2400030595 Raghavendra, [22-09-2025 11:55 AM]
+<ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Oversee operations</li>
+                  <li>• Manage resources</li>
+                  <li>• Generate reports</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="border-b">
+        <div className="flex h-16 items-center px-6">
+          <div className="flex items-center space-x-4">
+            <Badge variant="secondary">FEDF-PS13</Badge>
+            <h2>Educational ERP System</h2>
+          </div>
+          <div className="ml-auto flex items-center space-x-4">
+            <Badge variant="outline">{currentUser.charAt(0).toUpperCase() + currentUser.slice(1)}</Badge>
+            <Button variant="ghost" onClick={() => setCurrentUser(null)}>
+              Switch Role
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1">
+        {currentUser === 'admin' && <AdminDashboard />}
+        {currentUser === 'teacher' && <TeacherDashboard />}
+        {currentUser === 'student' && <StudentDashboard />}
+        {currentUser === 'administrator' && <AdministratorDashboard />}
+      </div>
+    </div>
+  );
+}
